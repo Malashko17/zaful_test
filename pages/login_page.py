@@ -1,6 +1,5 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 
 sign_in_text = (By.XPATH, "//h4[text()='Sign In']")
 email_field = (By.ID, "email")
@@ -16,6 +15,8 @@ password_recovery = (By.ID, "getpassword")
 password_recovery_title = (By.CLASS_NAME, "mb30")
 google_link = (By.XPATH, "//span[text()='Google']")
 google_text = (By.XPATH, "//div[text()='Войдите в аккаунт Google']")
+facebook_link = (By.ID, "loginFaceBook")
+facebook_logo = (By.ID, "homelink")
 
 
 class LoginPage(BasePage):
@@ -67,3 +68,9 @@ class LoginPage(BasePage):
 
     def click_text(self):
         return self.find_element(sign_in_text).click()
+
+    def open_facebook_link(self):
+        return self.find_element(facebook_link)
+
+    def facebook_text(self):
+        return self.find_element(facebook_logo)
