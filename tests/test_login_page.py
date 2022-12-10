@@ -1,8 +1,5 @@
-from pages.base_page import BasePage
 from pages.login_page import LoginPage
-from pages.home_page import HomePage
 from time import sleep
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver import ActionChains
 import settings
 
@@ -10,6 +7,7 @@ import settings
 def test_login_passed(driver):
     login_page = LoginPage(driver)
     login_page.open_login_page()
+    login_page.email_field().click()
     login_page.email_field().send_keys(settings.EMAIL)
     login_page.password_field().send_keys(settings.PASSWORD)
     login_page.sign_in().click()
@@ -56,9 +54,17 @@ def test_password_recovery_button(driver):
     sleep(5)
 
 
-# def test_facebook_link(driver):
-#     login_page = LoginPage(driver)
-#     login_page.open_login_page()
-#     login_page.open_google_auth()
-#     assert login_page.google_text() == 'Войдите в аккаунт Google'
+def test_google_link(driver):
+    login_page = LoginPage(driver)
+    login_page.open_login_page()
+    login_page.open_google_auth()
+    driver.switch_to.window(driver.window_handles[1])
+    assert login_page.google_text() == 'Войдите в аккаунт Google'
 
+
+def test_facebook_link(driver):
+    login_page = LoginPage(driver)
+    login_page.open_login_page()
+    login_page.open_facebook_link().click()
+    driver.switch_to.window(driver.window_handles[1])
+    assert login_page.facebook_text().text == "Facebook"
