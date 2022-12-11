@@ -52,7 +52,6 @@ def test_view_items_60(driver):
 def test_filter_shirts(driver):
     clothing_page = ClothingPage(driver)
     clothing_page.open_page()
-    # driver.implicitly_wait(10)
     ActionChains(driver).click(clothing_page.categories_button()).click(clothing_page.tops_button()).perform()
     clothing_page.shirts().click()
     items_is_shirts = 0
@@ -91,4 +90,14 @@ def test_clear_filter(driver):
     assert len(clothing_page.all_items_titles()) > black_m_shorts
 
 
+def test_currency_change(driver):
+    clothing_page = ClothingPage(driver)
+    clothing_page.open_page()
+    ActionChains(driver).move_to_element(clothing_page.currency_icon()).click(clothing_page.choose_currency()).\
+        click(clothing_page.choose_dollar()).click(clothing_page.update_pref()).perform()
+    correct_item_currency = 0
+    for item in clothing_page.all_prices():
+        if "$" in item.text:
+            correct_item_currency += 1
+    assert correct_item_currency == len(clothing_page.all_prices())
 
