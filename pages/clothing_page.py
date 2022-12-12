@@ -21,6 +21,11 @@ choose_m_size = (By.XPATH, "//a[@class='logsss_event_cl'][normalize-space()='M']
 color_choose = (By.XPATH, "//dt[text()='Color']")
 choose_black_color = (By.XPATH, "//a[@title='Black']//span[@class='color-item']")
 clear_all_button = (By.XPATH, "//a[normalize-space()='Clear All']")
+currency_icon = (By.CLASS_NAME, "has_arrow")
+currency_choose_button = (By.CLASS_NAME, "header-current-currency")
+choose_dollar_currency = (By.CSS_SELECTOR, "a[data-icon='$']")
+update_preferences = (By.CLASS_NAME, "link-update-preferences")
+all_prices = (By.CLASS_NAME, 'js_list_shopprice')
 
 
 class ClothingPage(BasePage):
@@ -91,5 +96,17 @@ class ClothingPage(BasePage):
     def clear_all_button(self):
         return self.find_element(clear_all_button)
 
+    def currency_icon(self):
+        return self.find_element(currency_icon)
 
+    def choose_currency(self):
+        return self.find_element(currency_choose_button)
 
+    def choose_dollar(self):
+        return self.find_element(choose_dollar_currency)
+
+    def update_pref(self):
+        return self.find_element(update_preferences)
+
+    def all_prices(self):
+        return self.find_elements(all_prices)

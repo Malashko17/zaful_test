@@ -26,3 +26,4 @@ class CartPage(BasePage):
 
     def accept_deletion(self):
         return self.find_element(alert_delete)
+

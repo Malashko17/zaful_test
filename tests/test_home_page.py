@@ -3,6 +3,7 @@ from selenium.webdriver import ActionChains
 from pages.home_page import HomePage
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from pages.clothing_page import ClothingPage
 
 
 def test_cookie_window(driver):
@@ -11,7 +12,6 @@ def test_cookie_window(driver):
     home_page.close_ads()
     driver.execute_script("window.scrollTo(0, 500)")
     home_page.cookie_button().click()
-    sleep(5)
     assert home_page.agree_cookie_button().is_enabled()
 
 
@@ -60,32 +60,22 @@ def test_satisfaction_survey(driver):
 
 def test_add_item_to_favorite_list(driver, login):
     home_page = HomePage(driver)
-    WebDriverWait(driver, 5).until(
-        EC.staleness_of(home_page.clothes())
-    )
-    home_page.men().click()
-    home_page.clothes().click()
+    clothing_page = ClothingPage(driver)
+    clothing_page.open_page()
+    WebDriverWait(driver, 15).until(EC.visibility_of(home_page.open_cart()))
     home_page.add_to_favorite()[1].click()
     first_item_in_favorite_list = home_page.all_items_links()[1].text
     home_page.open_favorite_list().click()
     assert home_page.all_favorite_items()[0].text in first_item_in_favorite_list
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+
 def test_delete_item_from_favorite_list(driver, login):
+    clothing_page = ClothingPage(driver)
+    clothing_page.open_page()
     home_page = HomePage(driver)
-    WebDriverWait(driver, 5).until(
-        EC.staleness_of(home_page.clothes())
-    )
-    home_page.men().click()
-    home_page.clothes().click()
     home_page.add_to_favorite()[1].click()
-    sleep(10)
-    first_item_in_favorite_list = home_page.all_items_links()[1]
+    first_item_in_favorite_list = home_page.all_items_links()[1].text
     home_page.open_favorite_list().click()
     home_page.delete_favorite_item()[0].click()
     home_page.confirm_deleting_from_favorite().click()
-    sleep(10)
-
-    WebDriverWait(driver, 20).until(EC.invisibility_of_element(first_item_in_favorite_list))
-
-    assert not first_item_in_favorite_list.is_displayed()
+    assert first_item_in_favorite_list not in home_page.all_favorite_items()[0].text
