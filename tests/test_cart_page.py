@@ -1,5 +1,3 @@
-import time
-
 import allure
 from selenium.webdriver import ActionChains
 from pages.cart_page import CartPage
@@ -7,7 +5,7 @@ from pages.home_page import HomePage
 from pages.clothing_page import ClothingPage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 
 
 @allure.feature("Cart Page")
