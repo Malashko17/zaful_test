@@ -12,6 +12,8 @@ count_items_view_120 = (By.LINK_TEXT, "120")
 count_items_view_60 = (By.LINK_TEXT, "60")
 all_clothes_titles = (By.CLASS_NAME, "js_list_title")
 categories = (By.XPATH, "//dt[text()='Categories']")
+sort = (By.XPATH, "//dt[@class='fsb']")
+sort_high_to_low = (By.XPATH, "//a[normalize-space()='Price High To Low']")
 tops = (By.XPATH, "//div[@class='menu']//a[contains(text(),'Tops')]")
 bottoms = (By.XPATH, "//div[@class='menu']//a[contains(text(),'Bottoms')]")
 shorts = (By.XPATH, "//li[@data-name='Shorts']")
@@ -68,6 +70,12 @@ class ClothingPage(BasePage):
 
     def categories_button(self):
         return self.find_element(categories)
+
+    def sort_button(self):
+        return self.find_element(sort)
+
+    def sort_high_to_low(self):
+        return self.find_element(sort_high_to_low)
 
     def shirts(self):
         return self.find_element(shirts)

@@ -3,7 +3,9 @@ from selenium.webdriver.common.by import By
 
 cart_button = (By.XPATH, "//i[@class='bag-icon']")
 ads = (By.LINK_TEXT, "No, thanks")
-cart_empty = (By.XPATH, "//h4[text()='Your shopping bag is empty.']")
+cart_empty_without_auth = (By.CLASS_NAME, "sign_tip")
+cart_empty = (By.XPATH, "//h4[normalize-space()='Your shopping bag is empty.']")
+home_page_banner = (By.CLASS_NAME, "ge-banner-img")
 continue_shopping_button = (By.CLASS_NAME, "sign_btn")
 my_account = (By.XPATH, '//*[@id="header_account_list_user"]/li[1]/a')
 extra_20_off = (By.XPATH, '//p[text()="Extra 20% OFF"]')
@@ -52,8 +54,14 @@ class HomePage(BasePage):
     def close_ads(self):
         self.find_element(ads).click()
 
+    def empty_cart_without_sign_in(self):
+        return self.find_element(cart_empty_without_auth)
+
     def cart_empty(self):
         return self.find_element(cart_empty)
+
+    def home_page_banner(self):
+        return self.find_elements(home_page_banner)[2]
 
     def continue_shopping_button(self):
         return self.find_element(continue_shopping_button)

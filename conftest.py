@@ -22,4 +22,4 @@ def login(driver):
     password = driver.find_element(By.ID, "passwordsign")
     password.send_keys(settings.PASSWORD)
     driver.find_element(By.CLASS_NAME, "elf-mood-sign-btn").click()
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(10)
